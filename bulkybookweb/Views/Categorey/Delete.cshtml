@@ -1,0 +1,25 @@
+﻿@model Category
+
+<form method="post" asp-action="Delete">
+    <div class="border p-3 mt-4">
+        <div asp-validation-summary="All"></div>
+        <h3 class="text-wrap">Delete page</h3>
+        <div class="mb=3">
+            <lable asp-for="name">name</lable>
+            <input asp-for="name" class="form-control"/>
+            <span asp-validation-for="name" class="text-danger"></span>
+        </div>
+        <div class="mb=3">
+            <lable>Displayorder </lable>
+            <input asp-for="Displayorder" class="form-control" />
+            <span asp-validation-for="Displayorder" class="text-danger"></span>
+        </div>
+        <div class="mb=3 mt-3">
+            <button type="submit" class="btn btn-danger" style="width:150px" >Sure To Delete?</button>
+            <a asp-controller="Categorey" asp-action="Index" class="btn btn-primary">back to list</a>
+        </div>
+    </div>
+
+
+</form>
+
