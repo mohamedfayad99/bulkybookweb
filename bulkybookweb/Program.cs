@@ -1,13 +1,35 @@
-using bulkybookweb.Data;
+using Bulky.DataAcces.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Bulky.Utility;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<ApplicationDBContext>(options => options.UseSqlServer(
-builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<ApplicationDBContext>(options => 
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.ConfigureApplicationCookie(Options =>
+{
+    Options.LoginPath = $"/Identity/Account/Login";
+    Options.LogoutPath = $"/Identity/Account/Logout";
+    Options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+});
+
+builder.Services.AddIdentity<IdentityUser,IdentityRole>().AddEntityFrameworkStores<ApplicationDBContext>().AddDefaultTokenProviders();
+builder.Services.ConfigureApplicationCookie(Options =>
+{
+    Options.LoginPath = $"/Identity/Account/Login";
+    Options.LogoutPath = $"/Identity/Account/Logout";
+    Options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+});
 //builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+
+builder.Services.AddRazorPages();
+builder.Services.AddScoped<IEmailSender,EmailSender>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -22,11 +44,11 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-//app.UseAuthentication();
+app.UseAuthentication();
 app.UseAuthorization();
-
+app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{Area=Customer}/{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

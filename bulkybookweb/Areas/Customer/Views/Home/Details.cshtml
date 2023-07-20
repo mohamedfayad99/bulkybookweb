@@ -1,0 +1,83 @@
+﻿@model Bulky.Models.Product
+
+    <div class="border p-3 mt-4">
+        <h3 class="text-wrap text-center">Delete page</h3>
+            <div class="row">
+                <div class="col-4">
+
+                    <img src="@Model.Imageurl"  class="mt-4"
+                    style="border-radius:10px;border:1px solid ; width: 100%;" />
+                </div>
+                <div class="col-8">
+                    <div class="col-lg-12 border p-1  mt-4  bg-gradient "
+                 style="border-radius:10px; width: 20%;">
+                      <h5>@ViewData["category"]</h5>
+                    </div>
+                    <div class="col-lg-12 mt-2">
+                        <p class="m-0 p-0 text-opacity-75">ISBN : @Model.ISBN</p>
+                        <hr class="p-0 m-0">
+                    </div>
+                    <div class="col-lg-12">
+                        <p class="m-0 p-0  text-opacity-75">List Price : $@Model.Listprice</p>
+                        <hr class="p-0 m-0">
+                    </div>
+                    <div>
+                        <table style="margin-top:6px;">
+                            <tr>
+                                <th>
+                            <p >Quantity</p>
+                                </th>
+                                <th>
+                            <p style="margin-left:6px;">1-50</p>
+                                </th>
+                                <th>
+                            <p style="margin-left:6px;">51-100</p>
+                                </th>
+                                <th >
+                            <p style="margin-left:6px;">100+</p>
+                                </th>
+                            </tr>
+                            <tr class="p-0 mt-0">
+                                <th><p >Price</p> </th>
+                                <td>
+                                    <p style="margin-left:6px;">@Model.List1</p>
+                                    </td>
+                                <td>
+                                    <p style="margin-left:6px;">@Model.List50</p>
+                                    </td>
+                                <td>
+                                    <p style="margin-left:6px;">@Model.List100 </p>
+                            </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                    <div class="col-lg-12 pt-2">
+                        <h5>Product Detail</h5>
+                        @Model.Description
+                        <hr class="m-0 pt-2 mt-2">
+                    </div>
+                    <div class="col-lg-12">
+                        <p class="tag-section"><strong>Author : </strong>@Model.Author</p>
+                    </div>
+                    <div class="col-lg-12">
+                        <h6>Quantity :</h6>
+                        <input type="number" class="form-control text-center w-100" value="1">
+                    </div>
+                    <div class="col-lg-12 mt-3">
+                        <div class="row">
+                            <div class="col-lg-6 pb-2">
+                                <a href="#" class="btn btn-danger w-100">Add To Cart</a>
+                            </div>
+                            <div class="col-lg-6">
+                                <a href="#" class="btn btn-success w-100">Shop Now</a>
+                            </div>
+                            <div class="col-lg-6">
+                                <a asp-controller="Home" asp-action="index" class="btn btn-primary w-100">Back</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+    </div>

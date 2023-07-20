@@ -1,0 +1,113 @@
+﻿@model Bulky.Models.Product
+
+<div class=" m-5">
+    <div class="border p-3 mt-4">
+        <div>
+            <h3 class="text-wrap">
+                @{
+                    var id = Model != null && Model.Id != null ? "Update" : "Create";
+                }
+                <h3 class="text-wrap">@id page</h3>
+
+            </h3>
+        </div>
+        <form method="post" asp-action="Upsert" enctype="multipart/form-data">
+            <input asp-for="Id" hidden />
+            <input asp-for="Imageurl" hidden />
+            <div class="row">
+                <div class="col-10">
+                    <div class="mb=3">
+                        <label asp-for="Title"></label>
+                        <input asp-for="Title" class="form-control shadow" />
+                        <span asp-validation-for="Title" class="text-danger "></span>
+                    </div>
+                    <div class="mb=3">
+                        <label asp-for="Description"></label>
+                        <Textarea asp-for="Description" class="form-control shadow"></Textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+
+                    </div>
+
+                    <div class="mb=3">
+                        <label asp-for="ISBN"></label>
+                        <input asp-for="ISBN" class="form-control shadow" />
+                        <span asp-validation-for="ISBN" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb=3">
+                        <label asp-for="Author"></label>
+                        <input asp-for="Author" class="form-control shadow" />
+                        <span asp-validation-for="Author" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb=3">
+                        <label asp-for="Listprice"></label>
+                        <input asp-for="Listprice" class="form-control shadow" />
+                        <span asp-validation-for="Listprice" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb=3">
+                        <label asp-for="List1"></label>
+                        <input asp-for="List1" class="form-control  shadow" />
+                        <span asp-validation-for="List1" class="text-danger"></span>
+                    </div>
+                    <div class="mb=3">
+                        <label asp-for="List50"></label>
+                        <input asp-for="List50" class="form-control shadow" />
+                        <span asp-validation-for="List50" class="text-danger"></span>
+                    </div>
+                    <div class="mb=3">
+                        <label asp-for="List100"></label>
+                        <input asp-for="List100" class="form-control shadow" />
+                        <span asp-validation-for="List100" class="text-danger"></span>
+                    </div>
+                    <div class="mb=3">
+                        <label asp-for="Imageurl"></label>
+                        <input asp-for="Imageurl" type="file" name="file" class="form-control shadow" />
+                        <span asp-validation-for="Imageurl" class="text-danger"></span>
+                    </div>
+                    <div class="mb=3">
+                        <label asp-for="CategoryId"></label>
+                        <select asp-for="CategoryId" asp-items="@(ViewData["categoryproduct"]as IEnumerable<SelectListItem>)" class="form-control shadow">
+                            <option disabled selected>--Select Category--</option>
+                        </select>
+                        <span asp-validation-for="CategoryId" class="text-danger"></span>
+                    </div>
+                    <div class="mb=3 mt-3">
+                        <button type="submit" class="btn btn-primary" style="width:150px">
+                            @id
+                        </button>
+                        <a asp-controller="Product" asp-action="index" class="btn btn-primary m-3" style="width:150px">back to list</a>
+                    </div>
+                </div>
+                <div class="col-2">
+                    @if (id == "Update")
+                    {
+                        <img src="@Model.Imageurl" width="100%" class="mt-4"
+                         style="border-radius:5px;border:1px solid ;" />
+                    }
+                </div>
+            </div>
+            @*<div asp-validation-summary="All"></div>*@
+        </form>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+            tinycomments_mode: 'embedded',
+            tinycomments_author: 'Author name',
+            mergetags_list: [
+                { value: 'First.Name', title: 'First Name' },
+                { value: 'Email', title: 'Email' },
+            ],
+            forced_root_block: ' ', // Set the root block to an empty string
+        });
+
+    </script>
+}

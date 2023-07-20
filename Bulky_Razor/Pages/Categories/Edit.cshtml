@@ -1,0 +1,26 @@
+﻿@page
+@model Bulky_Razor.Pages.Categories.EditModel
+
+<form method="post">
+    <div class="border p-3 mt-4">
+        <input asp-for="category.Id" hidden />  
+        <div asp-validation-summary="All"></div>
+        <h3 class="text-wrap">Update page</h3>
+        <div class="mb=3">
+            <lable asp-for="name">name</lable>
+            <input asp-for="category.name" class="form-control" />
+            <span asp-validation-for="category.name" class="text-danger"></span>
+        </div>
+        <div class="mb=3">
+            <lable>Displayorder </lable>
+            <input asp-for="category.Displayorder" class="form-control" />
+            <span asp-validation-for="category.Displayorder" class="text-danger"></span>
+        </div>
+        <div class="mb=3 mt-3">
+            <button type="submit" class="btn btn-primary" style="width:100px">Update</button>
+            <a asp-page="/Categories/index" class="btn btn-primary">back to list</a>
+        </div>
+    </div>
+
+
+</form>

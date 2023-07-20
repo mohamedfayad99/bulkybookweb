@@ -1,0 +1,53 @@
+﻿@model Bulky.Models.Product
+
+<div class=" m-5">
+    <div class="border p-3 mt-4">
+                <h3 class="text-wrap">Delete page</h3>
+        <form method="post" asp-action="Delete">
+            <div class="row">
+                <div class="col-10">
+                    <div class="mb=3">
+                        <label asp-for="Title"></label>
+                        <input asp-for="Title" class="form-control shadow" />
+                    </div>
+                    <div class="mb=3">
+                        <label asp-for="Description"></label>
+                        <Textarea asp-for="Description" class="form-control shadow"></Textarea>
+
+                    </div>
+
+                    <div class="mb=3">
+                        <label asp-for="ISBN"></label>
+                        <input asp-for="ISBN" class="form-control shadow" />
+                    </div>
+
+                    <div class="mb=3">
+                        <label asp-for="Author"></label>
+                        <input asp-for="Author" class="form-control shadow" />
+                    </div>
+
+                    <div class="mb=3">
+                        <label asp-for="Listprice"></label>
+                        <input asp-for="Listprice" class="form-control shadow" />
+                    </div>
+                    <div class="mb=3">
+                        <label asp-for="CategoryId"></label>
+                        <input asp-for="Author" value="@(ViewData["cccc"])" class="form-control shadow" />
+
+                    </div>
+                    <div class="mb=3 mt-3">
+                        <button type="submit" class="btn btn-danger" style="width:150px">
+                            Sure to Delete ?
+                        </button>
+                        <a asp-controller="Product" asp-action="index" class="btn btn-primary m-3" style="width:150px">back to list</a>
+                    </div>
+                </div>
+                <div class="col-2">
+
+                        <img src="@Model.Imageurl" width="100%" class="mt-4"
+                         style="border-radius:5px;border:1px solid ;" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
