@@ -3,19 +3,14 @@
 <div class=" m-5">
     <div class="border p-3 mt-4">
                 <h3 class="text-wrap">Delete page</h3>
-        <form method="post" asp-action="Delete">
-            <div class="row">
+        <form method="post" asp-action="DeletePost">
+                <input type="hidden" asp-for="Id" />
+                <div class="row">
                 <div class="col-10">
                     <div class="mb=3">
                         <label asp-for="Title"></label>
                         <input asp-for="Title" class="form-control shadow" />
                     </div>
-                    <div class="mb=3">
-                        <label asp-for="Description"></label>
-                        <Textarea asp-for="Description" class="form-control shadow"></Textarea>
-
-                    </div>
-
                     <div class="mb=3">
                         <label asp-for="ISBN"></label>
                         <input asp-for="ISBN" class="form-control shadow" />
@@ -23,12 +18,12 @@
 
                     <div class="mb=3">
                         <label asp-for="Author"></label>
-                        <input asp-for="Author" class="form-control shadow" />
+                        <input asp-for="Author"  class="form-control shadow" />
                     </div>
 
                     <div class="mb=3">
                         <label asp-for="Listprice"></label>
-                        <input asp-for="Listprice" class="form-control shadow" />
+                        <input asp-for="Listprice"  class="form-control shadow" />
                     </div>
                     <div class="mb=3">
                         <label asp-for="CategoryId"></label>

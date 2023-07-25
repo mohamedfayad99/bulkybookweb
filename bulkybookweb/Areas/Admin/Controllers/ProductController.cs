@@ -58,46 +58,45 @@ namespace Bulkybookweb.Controllers
             }
         }
 
-        [HttpPost, ActionName("Upsert")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Upsert(Product product,IFormFile? file )
+        public IActionResult Upsert([FromForm]Product product,IFormFile? file )
         {
-           // var check = _db.Products.Find(product.Id);
-           // if(check== null || check.Id==0)
-           // {
-                //if (ModelState.IsValid)
-                //{
-                    string WWWRootPath = _hostEnvironment.WebRootPath;
-                    if (file != null)
+            if (ModelState.IsValid)
+            {
+                string WWWRootPath = _hostEnvironment.WebRootPath;
+                if (file != null)
+                {
+                    string filename = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                    string productPath = Path.Combine(WWWRootPath, @"images\product");
+                    if (!string.IsNullOrEmpty(product.Imageurl))
                     {
-                        string filename=Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                        string productPath=Path.Combine(WWWRootPath,@"images\product");
-                        if (!string.IsNullOrEmpty(product.Imageurl))
+                        //delete old image
+                        var oldimage = Path.Combine(WWWRootPath, product.Imageurl.TrimStart('\\'));
+                        if (System.IO.File.Exists(oldimage))
                         {
-                            //delete old image
-                            var oldimage = Path.Combine(WWWRootPath, product.Imageurl.TrimStart('\\'));
-                            if(System.IO.File.Exists(oldimage))
-                            {
-                                System.IO.File.Delete(oldimage);
-                            }
+                            System.IO.File.Delete(oldimage);
                         }
-                        using (var filestream = new FileStream(Path.Combine(productPath,filename), FileMode.Create))
-                                {
-                                 file.CopyTo(filestream);
-                                }
-                        product.Imageurl = @"\images\product\"+filename;
                     }
-                    if (product.Id == 0)
+                    using (var filestream = new FileStream(Path.Combine(productPath, filename), FileMode.Create))
                     {
-                        _db.Products.Add(product);
+                        file.CopyTo(filestream);
                     }
-                    else
-                    {
-                        _db.Products.Update(product);
-                    }
-                    _db.SaveChanges();
-                    TempData["success"] = "product Added Successfully";
-                    return RedirectToAction("Index");
+                    product.Imageurl = @"\images\product\" + filename;
+                }
+                if (product.Id == 0)
+                {
+                    _db.Products.Add(product);
+                }
+                else
+                {
+                    _db.Products.Update(product);
+                }
+                _db.SaveChanges();
+                TempData["success"] = "product Added Successfully";
+                return RedirectToAction("Index");
+            }
+            return NotFound();
         }
         #endregion
 
@@ -148,26 +147,27 @@ namespace Bulkybookweb.Controllers
             {
                 return NotFound();
             }
-            return View();
+            return View(productobject);
         }
 
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult DeletePost(int? id)
         {
-            var productobject = _db.Products.Find(id);
-            if (productobject != null)
-            {
-                _db.Products.Remove(productobject);
-                _db.SaveChanges();
-                TempData["success"] = "productobject Deleted Successfully";
-                return RedirectToAction("Index");
-            }
-            else
+            if (id == null || id == 0)
             {
                 return NotFound();
-
             }
+            var productobject = _db.Products.Find(id);
+
+            if (productobject == null)
+            {
+                return NotFound();
+            }
+            _db.Products.Remove(productobject);
+            _db.SaveChanges();
+            TempData["success"] = "productobject Deleted Successfully";
+            return RedirectToAction("Index");
 
         }
         #endregion
