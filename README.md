@@ -1,6 +1,6 @@
 # bulkybookweb Project
 # Topics used
-## Fundamentals of .NET Core
+## Fundamentals of .NET Core 7
 ## MVC Application
 ## Razor Pages
 ## Entity Framework Core
